@@ -116,6 +116,8 @@ G_BEGIN_DECLS
  *
  * #GArrowDecimal32DataType is a class for the 32-bit decimal data type.
  *
+ * #GArrowDecimal64DataType is a class for the 64-bit decimal data type.
+ *
  * #GArrowDecimal128DataType is a class for the 128-bit decimal data type.
  *
  * #GArrowDecimal256DataType is a class for the 256-bit decimal data type.
@@ -1592,6 +1594,59 @@ garrow_decimal32_data_type_new(gint32 precision, gint32 scale, GError **error)
   if (garrow::check(error, arrow_data_type_result, "[decimal32-data-type][new]")) {
     auto arrow_data_type = *arrow_data_type_result;
     return GARROW_DECIMAL32_DATA_TYPE(g_object_new(GARROW_TYPE_DECIMAL32_DATA_TYPE,
+                                                    "data-type",
+                                                    &arrow_data_type,
+                                                    NULL));
+  } else {
+    return NULL;
+  }
+}
+
+G_DEFINE_TYPE(GArrowDecimal64DataType,
+              garrow_decimal64_data_type,
+              GARROW_TYPE_DECIMAL_DATA_TYPE)
+
+static void
+garrow_decimal64_data_type_init(GArrowDecimal64DataType *object)
+{
+}
+
+static void
+garrow_decimal64_data_type_class_init(GArrowDecimal64DataTypeClass *klass)
+{
+}
+
+/**
+ * garrow_decimal64_data_type_max_precision:
+ *
+ * Returns: The max precision of 64-bit decimal data type.
+ *
+ * Since: 3.0.0
+ */
+gint32
+garrow_decimal64_data_type_max_precision()
+{
+  return arrow::Decimal64Type::kMaxPrecision;
+}
+
+/**
+ * garrow_decimal64_data_type_new:
+ * @precision: The precision of decimal data.
+ * @scale: The scale of decimal data.
+ * @error: (nullable): Return location for a #GError or %NULL.
+ *
+ * Returns: (nullable):
+ *   The newly created 64-bit decimal data type on success, %NULL on error.
+ *
+ * Since: 0.12.0
+ */
+GArrowDecimal64DataType *
+garrow_decimal64_data_type_new(gint32 precision, gint32 scale, GError **error)
+{
+  auto arrow_data_type_result = arrow::Decimal64Type::Make(precision, scale);
+  if (garrow::check(error, arrow_data_type_result, "[decimal64-data-type][new]")) {
+    auto arrow_data_type = *arrow_data_type_result;
+    return GARROW_DECIMAL64_DATA_TYPE(g_object_new(GARROW_TYPE_DECIMAL64_DATA_TYPE,
                                                     "data-type",
                                                     &arrow_data_type,
                                                     NULL));
