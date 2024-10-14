@@ -1504,7 +1504,13 @@ garrow_decimal_data_type_class_init(GArrowDecimalDataTypeClass *klass)
 GArrowDecimalDataType *
 garrow_decimal_data_type_new(gint32 precision, gint32 scale, GError **error)
 {
-  if (precision <= garrow_decimal128_data_type_max_precision()) {
+  if (precision <= garrow_decimal32_data_type_max_precision()) {
+    return GARROW_DECIMAL_DATA_TYPE(
+      garrow_decimal32_data_type_new(precision, scale, error));
+  } else if (precision <= garrow_decimal64_data_type_max_precision()) {
+    return GARROW_DECIMAL_DATA_TYPE(
+      garrow_decimal64_data_type_new(precision, scale, error));
+  } else if (precision <= garrow_decimal128_data_type_max_precision()) {
     return GARROW_DECIMAL_DATA_TYPE(
       garrow_decimal128_data_type_new(precision, scale, error));
   } else {
