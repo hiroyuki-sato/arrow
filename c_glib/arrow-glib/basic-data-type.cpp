@@ -1591,10 +1591,8 @@ garrow_decimal32_data_type_new(gint32 precision, gint32 scale, GError **error)
   auto arrow_data_type_result = arrow::Decimal32Type::Make(precision, scale);
   if (garrow::check(error, arrow_data_type_result, "[decimal32-data-type][new]")) {
     auto arrow_data_type = *arrow_data_type_result;
-    return GARROW_DECIMAL32_DATA_TYPE(g_object_new(GARROW_TYPE_DECIMAL32_DATA_TYPE,
-                                                    "data-type",
-                                                    &arrow_data_type,
-                                                    NULL));
+    return GARROW_DECIMAL32_DATA_TYPE(
+      g_object_new(GARROW_TYPE_DECIMAL32_DATA_TYPE, "data-type", &arrow_data_type, NULL));
   } else {
     return NULL;
   }
