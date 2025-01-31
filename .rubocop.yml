@@ -5,16 +5,7 @@ Lint:
   Enabled: false
 
 Layout/LineLength:
-  Max: 300
+  Max: 100
 
 Layout/ArgumentAlignment:
   Enabled: true
-#
-#Layout/SpaceAfterComma:
-#  EnforcedStyle: space
-
-#Style/StringLiterals:
-#  Enabled: false
-
-#Naming/FileName:
-#  Enabled: false

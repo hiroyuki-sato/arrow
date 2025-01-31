@@ -190,6 +190,6 @@ repos:
     hooks:
       - id: rubocop
         alias: ruby-format
-        #args: [--auto-correct]
-        args: []
+        args: [--autocorrect]
+        #args: []
         files: .*\.rb$
