@@ -1,0 +1,20 @@
+AllCops:
+  DisabledByDefault: true
+
+Lint:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 300
+
+Layout/ArgumentAlignment:
+  Enabled: true
+#
+#Layout/SpaceAfterComma:
+#  EnforcedStyle: space
+
+#Style/StringLiterals:
+#  Enabled: false
+
+#Naming/FileName:
+#  Enabled: false
