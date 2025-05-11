@@ -23,6 +23,7 @@
 #include <arrow-glib/basic-data-type.h>
 #include <arrow-glib/buffer.h>
 #include <arrow-glib/interval.h>
+#include <arrow-glib/tensor.h>
 
 G_BEGIN_DECLS
 
@@ -969,4 +970,21 @@ GARROW_AVAILABLE_IN_3_0
 GArrowArray *
 garrow_extension_array_get_storage(GArrowExtensionArray *array);
 
+#define GARROW_TYPE_FIXED_SHAPE_TENSOR_ARRAY \
+  (garrow_fixed_shape_tensor_array_get_type())
+GARROW_AVAILABLE_IN_21_0
+G_DECLARE_DERIVABLE_TYPE(GArrowFixedShapeTensorArray,
+                         garrow_fixed_shape_tensor_array,
+                         GARROW,
+                         FIXED_SHAPE_TENSOR_ARRAY,
+                         GArrowExtensionArray)
+struct _GArrowFixedShapeTensorArrayClass
+{
+  GArrowExtensionArrayClass parent_class;
+};
+
+GARROW_AVAILABLE_IN_21_0
+GArrowFixedShapeTensorArray *
+garrow_fixed_shape_tensor_array_new(GArrowFixedShapeTensorArray *object,
+                                    GArrowTensor *tensor);
 G_END_DECLS

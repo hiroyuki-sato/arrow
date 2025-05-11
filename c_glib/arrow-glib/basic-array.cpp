@@ -26,6 +26,7 @@
 #include <arrow-glib/type.hpp>
 
 #include <arrow/c/bridge.h>
+#include <arrow/extension/fixed_shape_tensor.h>
 
 #include <sstream>
 
@@ -3730,6 +3731,37 @@ garrow_extension_array_get_storage(GArrowExtensionArray *array)
   return garrow_array_new_raw(&(array_priv->array));
 }
 
+G_DEFINE_TYPE(GArrowFixedShapeTensorArray,
+              garrow_fixed_shape_tensor_array,
+              GARROW_TYPE_EXTENSION_ARRAY)
+
+static void
+garrow_fixed_shape_tensor_array_init(GArrowFixedShapeTensorArray *object)
+{
+}
+
+static void
+garrow_fixed_shape_tensor_array_class_init(GArrowFixedShapeTensorArrayClass *klass)
+{
+}
+
+GArrowFixedShapeTensorArray *
+garrow_fixed_shape_tensor_array_new(GArrowExtensionArray *object, GArrowTensor *tensor)
+{
+  auto priv = GARROW_EXTENSION_ARRAY_GET_PRIVATE(object);
+  auto &arrow_array = priv->storage;
+
+  //auto arrow_tensor = GARROW_TENSOR_GET_PRIVATE(tensor);
+  auto &arrow_tensor =
+  static_cast<GArrowTensorPrivate *>(                                                    \
+    garrow_tensor_get_instance_private(GARROW_TENSOR(tensor)));
+
+  auto array_extension =
+    arrow::extension::FixedShapeTensorArray::FromTensor(arrow_tensor);
+
+  return GARROW_ARRAY_FIXED_SHAPE_TENSOR_ARRAY(
+    g_object_new(GARROW_TYPE_FIXED_SHAPE_TENSOR_ARRAY, "storage", arrow_statistics, nullptr));
+}
 G_END_DECLS
 
 arrow::EqualOptions *
