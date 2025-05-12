@@ -3747,19 +3747,22 @@ garrow_fixed_shape_tensor_array_class_init(GArrowFixedShapeTensorArrayClass *kla
 }
 
 GArrowFixedShapeTensorArray *
-garrow_fixed_shape_tensor_array_new(GArrowFixedShapeTensorArray *object, GArrowTensor *tensor)
+garrow_fixed_shape_tensor_array_new(GArrowTensor *tensor, GError **error)
 {
-  auto priv = GARROW_EXTENSION_ARRAY_GET_PRIVATE(object);
-  auto &arrow_array = priv->storage;
-
   auto arrow_tensor =
     garrow_tensor_get_raw(tensor);
 
-  auto array_extension =
+  auto arrow_array_result =
     arrow::extension::FixedShapeTensorArray::FromTensor(arrow_tensor);
 
+  if (!garrow::check(error, arrow_array_result, "[fixed-shape-tensor][new]")) {
+    return NULL;
+  }
+
+  auto arrow_array = *arrow_array_result;
+
   return GARROW_FIXED_SHAPE_TENSOR_ARRAY(
-    g_object_new(GARROW_TYPE_FIXED_SHAPE_TENSOR_ARRAY, "storage", *array_extension, nullptr));
+    g_object_new(GARROW_TYPE_FIXED_SHAPE_TENSOR_ARRAY, "storage", &arrow_array_result, nullptr));
 }
 G_END_DECLS
 

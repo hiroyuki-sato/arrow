@@ -985,6 +985,5 @@ struct _GArrowFixedShapeTensorArrayClass
 
 GARROW_AVAILABLE_IN_21_0
 GArrowFixedShapeTensorArray *
-garrow_fixed_shape_tensor_array_new(GArrowFixedShapeTensorArray *object,
-                                    GArrowTensor *tensor);
+garrow_fixed_shape_tensor_array_new(GArrowTensor *tensor, GError **error);
 G_END_DECLS
