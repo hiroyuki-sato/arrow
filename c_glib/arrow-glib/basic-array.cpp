@@ -3746,6 +3746,13 @@ garrow_fixed_shape_tensor_array_class_init(GArrowFixedShapeTensorArrayClass *kla
 {
 }
 
+/**
+ * garrow_fixed_shape_tensor_array_new:
+ * @tensor: A #GArrowTensor TODO
+ * @error: (nullable): Return location for a #GError or %NULL.
+ *
+ * Returns: The newly created fixed shape tensor array.
+ */
 GArrowFixedShapeTensorArray *
 garrow_fixed_shape_tensor_array_new(GArrowTensor *tensor, GError **error)
 {
@@ -3762,7 +3769,7 @@ garrow_fixed_shape_tensor_array_new(GArrowTensor *tensor, GError **error)
   auto arrow_array = *arrow_array_result;
 
   return GARROW_FIXED_SHAPE_TENSOR_ARRAY(
-    g_object_new(GARROW_TYPE_FIXED_SHAPE_TENSOR_ARRAY, "storage", &arrow_array_result, nullptr));
+    g_object_new(GARROW_TYPE_FIXED_SHAPE_TENSOR_ARRAY, "storage", &arrow_array, nullptr));
 }
 G_END_DECLS
 
