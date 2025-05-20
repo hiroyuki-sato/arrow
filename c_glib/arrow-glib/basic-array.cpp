@@ -3770,10 +3770,12 @@ garrow_fixed_shape_tensor_array_new(GArrowTensor *tensor, GError **error)
   //std::shared_ptr<arrow::Array> arrow_array = array_fixed_shape_tensor_array;
   //return GARROW_FIXED_SHAPE_TENSOR_ARRAY(arrow_array);
 
+  //auto storage = (*arrow_array_result)->storage();
   //auto arrow_array = *arrow_array_result;
   std::shared_ptr<arrow::Array> arrow_array = *arrow_array_result;
   return GARROW_FIXED_SHAPE_TENSOR_ARRAY(
     garrow_extension_array_new_raw(&arrow_array,nullptr));
+//    garrow_extension_array_new_raw(&arrow_array,storage));
 //      garrow_buffer_new_raw(*arrow_array));
 //    g_object_new(GARROW_TYPE_EXTENSION_ARRAY, "storage", arrow_extension_array, nullptr));
 //    g_object_new(GARROW_TYPE_FIXED_SHAPE_TENSOR_ARRAY, "storage", &arrow_extension_array, nullptr));
